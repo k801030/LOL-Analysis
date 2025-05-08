@@ -39,7 +39,7 @@
         </div>
 
         <!-- Dropdown Menu -->
-        <div class="dropdown-menu origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none hidden z-10"
+        <div class="dropdown-menu origin-top-right absolute left-0 mt-2 w-52 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none hidden z-10"
              id="user-dropdown-menu">
             <div class="py-1">
                 {% for user in users %}
@@ -69,7 +69,7 @@
         </div>
 
         <!-- Dropdown Menu for Game Count -->
-        <div class="dropdown-menu origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none hidden z-10"
+        <div class="dropdown-menu origin-top-right absolute left-0 mt-2 w-32 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none hidden z-10"
              id="game-count-dropdown-menu">
             <div class="py-1">
                 {% for count in game_counts %}
@@ -120,11 +120,11 @@
         </h1>
 
         <div class="overflow-x-auto">
-            <table class="min-w-full text-sm border border-gray-200 rounded-lg overflow-hidden">
+            <table class="min-w-full text-xs border border-gray-200 rounded-lg overflow-hidden">
                 <thead class="bg-gray-100 text-gray-700 text-left uppercase text-xs tracking-wider">
                 <tr>
-                    <th class="px-4 py-2 fixed-column">Champion</th>
-                    <th class="px-4 py-2">Games</th>
+                    <th class="px-6 py-2 fixed-column">Champion</th>
+                    <th class="px-2 py-2">Games</th>
                     <th class="px-4 py-2">Win Rate</th>
                     <th class="px-4 py-2">KDA</th>
                     <th class="px-4 py-2">KP</th>
@@ -165,7 +165,7 @@
                 <tr class="hover:bg-gray-50 transition">
                     <td class="px-4 py-2 flex items-center space-x-3 fixed-column">
                         <img src="{{ champion_images.get(match.name, '/static/default.png') }}"
-                             class="w-10 h-10 rounded-full border border-gray-300 shadow-sm"/>
+                             class="w-8 h-8 rounded-full border border-white-950 shadow-sm"/>
                         <span class="font-bold">{{ match.name }}</span>
                     </td>
                     <td class="px-4 py-2 font-mono">
