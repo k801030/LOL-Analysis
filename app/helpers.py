@@ -51,6 +51,6 @@ def aggregate_win_rate(win_rate_map: dict[str, WinRate]) -> WinRate:
     overview.kda.kill_participation = sum(win_rate.kda.kill_participation for win_rate in win_rate_map.values())
 
     overview.win_count = sum(win_rate.win_count for win_rate in win_rate_map.values())
-    overview.win_count = sum(win_rate.lose_count for win_rate in win_rate_map.values())
+    overview.lose_count = sum(win_rate.lose_count for win_rate in win_rate_map.values())
     overview.total_count = sum(win_rate.total_count for win_rate in win_rate_map.values())
     return overview
