@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Champion Stats</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+
+
+</head>
+<body style="font-family: 'Inter', sans-serif; background-color: #f9fafb;" class="font-roboto bg-gray-50 text-gray-900 min-h-screen p-4">
+
+<div class="max-w-5xl mx-auto">
+    <!-- Dropdown for User Selection -->
+    <div class="relative inline-block text-left mb-6">
+        <div>
+            <button type="button" class="user-dropdown-btn inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" id="user-dropdown">
+                {{ selected_user }}
+                <svg class="ml-2 -mr-1 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Dropdown Menu -->
+        <div class="dropdown-menu origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none hidden z-10" id="user-dropdown-menu">
+            <div class="py-1">
+                {% for user in users %}
+                    <a href="{{ url_for('index', user=user) }}"
+                       class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 {% if user == selected_user %}bg-gray-100 text-gray-900{% endif %}">
+                       {% set username_parts = user.split('#') %}
+                       <span class="font-medium">{{ username_parts[0] }}</span>
+                       <span class="text-gray-500 text-xs">#{{ username_parts[1] }}</span>
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+<script>
+    // Get the button and dropdown elements
+    const dropdownButton = document.getElementById("user-dropdown");
+    const dropdownMenu = document.getElementById("user-dropdown-menu");
+
+    // Toggle the dropdown visibility
+    dropdownButton.addEventListener("click", function() {
+        dropdownMenu.classList.toggle("hidden");
+    });
+
+    // Close the dropdown when clicking outside of it
+    document.addEventListener("click", function(event) {
+        if (!dropdownButton.contains(event.target) && !dropdownMenu.contains(event.target)) {
+            dropdownMenu.classList.add("hidden");
+        }
+    });
+</script>
+
+
+    <!-- Content Area for Current User -->
+    <div id="user-stats" class="bg-white rounded-2xl shadow-lg p-6">
+        <h1 id="user-title" class="text-3xl font-semibold mb-6">
+             {% set username_parts = selected_user.split('#') %}
+           <span class="font-medium">Champion Stats for : {{ username_parts[0] }}</span>
+           <span class="text-gray-500 text-sm">#{{ username_parts[1] }}</span>
+        </h1>
+
+        <div class="overflow-x-auto">
+            <table class="min-w-full text-sm border border-gray-200 rounded-lg overflow-hidden">
+                <thead class="bg-gray-100 text-gray-700 text-left uppercase text-xs tracking-wider">
+                    <tr>
+                        <th class="px-6 py-4">Champion</th>
+                        <th class="px-6 py-4">Games</th>
+                        <th class="px-6 py-4">Win Rate</th>
+                        <th class="px-6 py-4">KDA</th>
+                        <th class="px-6 py-4">KP</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    {% for match in matches %}
+                    <tr class="hover:bg-gray-50 transition">
+                        <td class="px-6 py-4 flex items-center space-x-3">
+                            <img src="{{ champion_images.get(match.name, '/static/default.png') }}"
+                                 class="w-10 h-10 rounded-full border border-gray-300 shadow-sm"/>
+                            <span class="font-bold">{{ match.name }}</span>
+                        </td>
+                        <td class="px-6 py-4 font-mono">
+                            {{ match.games }}
+                        </td>
+                        <td class="px-6 py-4">
+                            <span class="px-2 py-1 rounded-full text-xs font-bold
+                              {% if match.win_rate > 60 %}bg-green-100 text-green-700
+                              {% elif match.win_rate < 40 %}bg-red-100 text-red-700{% endif %}">
+                              {{ match.win_rate }}%
+                            </span>
+                        </td>
+                        <td class="px-6 py-4">
+                            <span class="px-2 py-1 rounded-full text-xs font-bold
+                              {% if match.kda > 3 %}bg-green-100 text-green-700
+                              {% elif match.kda < 2 %}bg-red-100 text-red-700{% endif %}">
+                              {{ match.kda }}
+                            </span>
+                        </td>
+                        <td class="px-6 py-4">
+                            <span class="px-2 py-1 rounded-full text-xs font-bold
+                              {% if match.kp > 60 %}bg-green-100 text-green-700
+                              {% elif match.kp < 40 %}bg-red-100 text-red-700{% endif %}">
+                              {{ match.kp }}%
+                            </span>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

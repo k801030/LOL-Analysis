@@ -4,10 +4,10 @@ from typing import Optional, List
 
 import requests
 
-from cache import APICache
-from models.match_detail import MatchDetail
-from models.riot_acount import RiotAccount
-from secrets import API_KEY
+from .cache import APICache
+from .models.match_detail import MatchDetail
+from .models.riot_acount import RiotAccount
+from .secrets import API_KEY
 
 
 logger = logging.getLogger(__name__)

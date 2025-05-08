@@ -1,11 +1,11 @@
 import logging
 from collections import OrderedDict
 
-from color_output import green, red, cyan, bold, highlight
-from helpers import update_participant_win_rate, update_champion_win_rate
-from models.entity_type import EntityType
-from models.win_rate import WinRate
-from riot_api_client import RiotAPIClient
+from app.helpers import update_participant_win_rate, update_champion_win_rate
+from .color_output import cyan, bold, highlight
+from .models.entity_type import EntityType
+from .models.win_rate import WinRate
+from .riot_api_client import RiotAPIClient
 
 
 logger = logging.getLogger(__name__)
@@ -90,7 +90,6 @@ class App:
             kp = highlight(win_rate.kda.avg_kill_participation(), 60, 40)
             win_rate_row = f"{name:<16} | {w_l:^10} | {rate:^17} | {kda:^15} | {kp:^15}\n"
 
-
             # if win_rate.win_rate() >= 60:
             #     win_rate_row = green(win_rate_row)
             # elif win_rate.win_rate() <= 40:
@@ -123,9 +122,9 @@ def get_info_by_champion(self, champion_name):
 game_names = [
     "98man#EUW",
     "London78Man#5566",
-    # "LondonRoy#EUW",
+    "LondonRoy#EUW",
     "happyhellowin#EUW",
-    # "yoyomimimao#EUW",
+    "yoyomimimao#EUW",
     "ThankU9527#9527",
     # "油舌夫#7725",
     # "78人#2888",

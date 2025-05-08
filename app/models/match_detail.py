@@ -2,6 +2,8 @@ from datetime import datetime
 from dataclasses import dataclass, field
 from typing import List
 
+from app.typo_corrector import TypoCorrector
+
 
 @dataclass
 class Metadata:
@@ -41,13 +43,14 @@ class Participant:
 
     @classmethod
     def from_dict(cls, data: dict) -> "Participant":
+        champion_name = TypoCorrector.correct(data["championName"])
         return cls(
             puuid=data["puuid"],
             team_id=data["teamId"],
             win=data["win"],
             game_name=data["riotIdGameName"],
             tag=data["riotIdTagline"],
-            champion_name=data["championName"],
+            champion_name=champion_name,
             kills=data["kills"],
             deaths=data["deaths"],
             assists=data["assists"],

@@ -1,8 +1,7 @@
 from typing import List
 
-from models.kda import Kda
-from models.win_rate import WinRate
-from models.match_detail import MatchDetail, Participant
+from .models.match_detail import MatchDetail, Participant
+from .models.win_rate import WinRate
 
 
 def get_game_names_from_participants(participants: List[Participant], owner_puuid: str) -> List[str]:
