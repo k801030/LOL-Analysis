@@ -48,7 +48,7 @@ class Participant:
             puuid=data["puuid"],
             team_id=data["teamId"],
             win=data["win"],
-            game_name=data["riotIdGameName"],
+            game_name=data.get("riotIdGameName"),
             tag=data["riotIdTagline"],
             champion_name=champion_name,
             kills=data["kills"],
