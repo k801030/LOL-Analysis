@@ -3,10 +3,8 @@ from flask import Flask, render_template, request
 from app.app import App
 
 
-DEFAULT_GAME_COUNTS = 20
 server = Flask(__name__)
 app = App()
-app.set_count(DEFAULT_GAME_COUNTS)
 
 users = [
     "98man#EUW",
@@ -17,15 +15,24 @@ users = [
     "ThankU9527#9527",
 ]
 
+game_counts = [
+    10,
+    20,
+    50,
+    100,
+]
+
 
 @server.route("/")
 def index():
     # Get the selected user from the URL parameters, default to the first user
     selected_user = request.args.get('user', users[0])
-
-    # Get the matches for the selected user
     game_name, tag_line = selected_user.split("#")
     app.set_game_name(game_name, tag_line)
+
+    # Get the selected game count from the URL parameters, default to the second game count
+    selected_game_count = request.args.get('game_count', game_counts[1])
+    app.set_count(selected_game_count)
 
     win_rate_map = app.get_win_rates_by_champions()
 
@@ -39,6 +46,8 @@ def index():
         "champions.html",
         users=users,
         selected_user=selected_user,
+        game_counts=game_counts,
+        selected_game_count=selected_game_count,
         matches=matches,
         champion_images=champion_images,
     )
