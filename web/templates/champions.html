@@ -43,7 +43,7 @@
              id="user-dropdown-menu">
             <div class="py-1">
                 {% for user in users %}
-                <a href="{{ url_for('index', user=user) }}"
+                <a href="{{ url_for('index', user=user, game_count=selected_game_count) }}"
                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 {% if user == selected_user %}bg-gray-100 text-gray-900{% endif %}">
                     {% set username_parts = user.split('#') %}
                     <span class="font-medium">{{ username_parts[0] }}</span>
@@ -72,10 +72,10 @@
         <div class="dropdown-menu origin-top-right absolute left-0 mt-2 w-32 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none hidden z-10"
              id="game-count-dropdown-menu">
             <div class="py-1">
-                {% for count in game_counts %}
-                <a href="{{ url_for('index', user=selected_user, game_count=count) }}"
+                {% for game_count in game_counts %}
+                <a href="{{ url_for('index', user=selected_user, game_count=game_count) }}"
                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 {% if count == selected_game_count %}bg-gray-100 text-gray-900{% endif %}">
-                    {{ count }}
+                    {{ game_count }}
                 </a>
                 {% endfor %}
             </div>
