@@ -8,7 +8,10 @@ redis-server
 
 ## Run Flask server
 ```
-flask --app web/server --debug run
+flask --app web/server --debug run -p 3000
 ```
 
-## Run ngrok
+## Run zrok server
+```
+zrok share public :3000
+```
