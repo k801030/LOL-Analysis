@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, make_response
 
 from app.app import App
 from app.helpers import aggregate_win_rate
@@ -27,13 +27,15 @@ game_counts = [
 @server.route("/")
 def index():
     # Get the selected user from the URL parameters, default to the first user
-    selected_user = request.args.get('user', users[0])
+    user_cookie = request.cookies.get("user", users[0])
+    selected_user = request.args.get('user', user_cookie)
     game_name, tag_line = selected_user.split("#")
     app.set_game_name(game_name, tag_line)
 
     # Get the selected game count from the URL parameters, default to the second game count
-    selected_game_count = request.args.get('game_count', game_counts[1])
-    app.set_count(selected_game_count)
+    game_count_cookie = request.cookies.get("game_count", game_counts[1])
+    selected_game_count = request.args.get('game_count', game_count_cookie)
+    app.set_count(int(selected_game_count))
 
     win_rate_map = app.get_win_rates_by_champions()
     overview_win_rate = aggregate_win_rate(win_rate_map).to_html_dict()
@@ -43,16 +45,21 @@ def index():
         win_rate.title: champion_to_url(win_rate.title)
         for win_rate in win_rate_map.values()
     }
-    return render_template(
-        "champions.html",
-        users=users,
-        selected_user=selected_user,
-        game_counts=game_counts,
-        selected_game_count=selected_game_count,
-        matches=matches,
-        overview_win_rate=overview_win_rate,
-        champion_images=champion_images,
+    resp = make_response(
+        render_template(
+            "champions.html",
+            users=users,
+            selected_user=selected_user,
+            game_counts=game_counts,
+            selected_game_count=selected_game_count,
+            matches=matches,
+            overview_win_rate=overview_win_rate,
+            champion_images=champion_images,
+        )
     )
+    resp.set_cookie("user", selected_user)
+    resp.set_cookie("game_count", str(selected_game_count))
+    return resp
 
 
 def champion_to_url(champion):
