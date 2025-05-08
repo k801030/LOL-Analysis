@@ -1,6 +1,6 @@
 {% macro render_match_row(match, champion_images, has_image=true, is_last=false) %}
 <tr class="hover:bg-gray-50 transition">
-    <td class="px-4 py-2 {{ 'border-b-2' if is_last else 'flex items-center space-x-3' }}">
+    <td class="fixed-column px-4 py-2 {{ 'border-b-2' if is_last else 'flex items-center space-x-3' }}">
         {% set name_parts = match.name.split('#') %}
         {% set name = name_parts[0] %}
         {% set lane = name_parts[1] %}

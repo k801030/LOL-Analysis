@@ -11,7 +11,20 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Inter Font -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
-
+    <style>
+        /*tr > th:first-child {*/
+        /*    position: sticky;*/
+        /*    left: 0;*/
+        /*    background-color: rgb(243 244 246); !* Prevent transparency under scrolling *!*/
+        /*    z-index: 10; !* Ensure it's above the scrolling cells *!*/
+        /*}*/
+        /*tr > td:first-child {*/
+        /*    position: sticky;*/
+        /*    left: 0;*/
+        /*    background-color: white; !* Prevent transparency under scrolling *!*/
+        /*    z-index: 10; !* Ensure it's above the scrolling cells *!*/
+        /*}*/
+    </style>
 </head>
 <body class="font-mono bg-gray-50 text-gray-900 min-h-screen p-4">
 
@@ -110,101 +123,103 @@
             <br>
             <span class="text-base"> in recent {{ selected_game_count }} games</span>
         </h1>
-
         <div class="overflow-x-auto">
-            {% import "macros.html" as macros %}
-            <table class="min-w-full text-xs border border-gray-200 rounded-lg overflow-hidden">
-                <thead class="bg-gray-100 text-gray-700 text-left uppercase text-xs tracking-wider">
-                <tr>
-                    <th class="px-4 py-2 fixed-column">Champion</th>
-                    <th class="px-2 py-2">Position</th>
-                    <th class="px-2 py-2">Games</th>
-                    <th class="px-4 py-2">Win Rate</th>
-                    <th class="px-4 py-2">KDA</th>
-                    <th class="px-4 py-2">
-                        KP
-                        <button class="ml-1 text-gray-400 hover:text-gray-600 focus:outline-none relative group">
-                            <svg class="w-4 h-4 inline-block" fill="none" stroke="currentColor" stroke-width="2"
-                                 viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                      d="M13 16h-1v-4h-1m1-4h.01M12 20a8 8 0 100-16 8 8 0 000 16z"></path>
-                            </svg>
-                            <!-- Tooltip -->
-                            <div class="absolute z-10 hidden group-hover:block bg-white border border-gray-300 text-gray-700 text-xs rounded shadow-lg w-48 p-2 right-0 top-6">
-                                Kill Participation (KP) is the percentage of team kills a player was involved in.
-                            </div>
-                        </button>
-                    </th>
-                    <th class="px-4 py-2">
-                        GD@14
-                        <button class="ml-1 text-gray-400 hover:text-gray-600 focus:outline-none relative group">
-                            <svg class="w-4 h-4 inline-block" fill="none" stroke="currentColor" stroke-width="2"
-                                 viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                      d="M13 16h-1v-4h-1m1-4h.01M12 20a8 8 0 100-16 8 8 0 000 16z"></path>
-                            </svg>
-                            <!-- Tooltip -->
-                            <div class="absolute z-10 hidden group-hover:block bg-white border border-gray-300 text-gray-700 text-xs rounded shadow-lg w-56 p-2 right-0 top-6">
-                                Gold Difference at 14 minutes (GD@14) shows how much more or less gold the player has
-                                compared to their lane opponent at minute 14.
-                            </div>
-                        </button>
-                    </th>
-                </tr>
-                </thead>
-                <tbody class="bg-white divide-y divide-gray-200">
-                <tr class="hover:bg-gray-50 transition ">
-                    <td class="px-4 py-2 font-mono border-b-2 fixed-column">
-                        <span class="font-bold">{{ overview_win_rate.name }}</span>
-                    </td>
-                    <td class="px-4 py-2 font-mono border-b-2">
-                    </td>
-                    <td class="px-4 py-2 font-mono border-b-2">
-                        {{ overview_win_rate.games }}
-                    </td>
-                    <td class="px-4 py-2 border-b-2">
+
+            <div class="overflow-x-auto">
+                {% import "macros.html" as macros %}
+                <table class="min-w-full table-fixed text-xs border border-gray-200 rounded-lg">
+                    <thead class="bg-gray-100 text-gray-700 text-left uppercase text-xs tracking-wider">
+                    <tr>
+                        <th class="px-6 py-2 fixed-column">Champion</th>
+                        <th class="px-2 py-2 ">Position</th>
+                        <th class="px-2 py-2">Games</th>
+                        <th class="px-4 py-2">Win Rate</th>
+                        <th class="px-4 py-2">KDA</th>
+                        <th class="px-4 py-2">
+                            KP
+                            <button class="ml-1 text-gray-400 hover:text-gray-600 focus:outline-none relative group">
+                                <svg class="w-4 h-4 inline-block" fill="none" stroke="currentColor" stroke-width="2"
+                                     viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                          d="M13 16h-1v-4h-1m1-4h.01M12 20a8 8 0 100-16 8 8 0 000 16z"></path>
+                                </svg>
+                                <!-- Tooltip -->
+                                <div class="absolute z-10 hidden group-hover:block bg-white border border-gray-300 text-gray-700 text-xs rounded shadow-lg w-48 p-2 right-0 top-6">
+                                    Kill Participation (KP) is the percentage of team kills a player was involved in.
+                                </div>
+                            </button>
+                        </th>
+                        <th class="px-4 py-2">
+                            GD@14
+                            <button class="ml-1 text-gray-400 hover:text-gray-600 focus:outline-none relative group">
+                                <svg class="w-4 h-4 inline-block" fill="none" stroke="currentColor" stroke-width="2"
+                                     viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                          d="M13 16h-1v-4h-1m1-4h.01M12 20a8 8 0 100-16 8 8 0 000 16z"></path>
+                                </svg>
+                                <!-- Tooltip -->
+                                <div class="absolute z-10 hidden group-hover:block bg-white border border-gray-300 text-gray-700 text-xs rounded shadow-lg w-56 p-2 right-0 top-6">
+                                    Gold Difference at 14 minutes (GD@14) shows how much more or less gold the player
+                                    has
+                                    compared to their lane opponent at minute 14.
+                                </div>
+                            </button>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                    <tr class="hover:bg-gray-50 transition ">
+                        <td class="px-4 py-2 font-mono border-b-2 fixed-column">
+                            <span class="font-bold">{{ overview_win_rate.name }}</span>
+                        </td>
+                        <td class="px-4 py-2 font-mono border-b-2">
+                        </td>
+                        <td class="px-4 py-2 font-mono border-b-2">
+                            {{ overview_win_rate.games }}
+                        </td>
+                        <td class="px-4 py-2 border-b-2">
                             <span class="px-2 py-1 rounded-full text-xs font-bold
                               {% if overview_win_rate.win_rate > 60 %}bg-green-100 text-green-700
                               {% elif overview_win_rate.win_rate < 40 %}bg-red-100 text-red-700{% endif %}">
                               {{ overview_win_rate.win_rate }}%
                             </span>
-                    </td>
-                    <td class="px-4 py-2 border-b-2">
+                        </td>
+                        <td class="px-4 py-2 border-b-2">
                             <span class="px-2 py-1 rounded-full text-xs font-bold
                               {% if overview_win_rate.kda > 3 %}bg-green-100 text-green-700
                               {% elif overview_win_rate.kda < 2 %}bg-red-100 text-red-700{% endif %}">
                               {{ overview_win_rate.kda }}
                             </span>
-                    </td>
-                    <td class="px-4 py-2 border-b-2">
+                        </td>
+                        <td class="px-4 py-2 border-b-2">
                             <span class="px-2 py-1 rounded-full text-xs font-bold
                               {% if overview_win_rate.kp > 55 %}bg-green-100 text-green-700
                               {% elif overview_win_rate.kp < 40 %}bg-red-100 text-red-700{% endif %}">
                               {{ overview_win_rate.kp }}%
                             </span>
-                    </td>
+                        </td>
 
-                    <td class="px-4 py-2">
+                        <td class="px-4 py-2">
                             <span class="px-2 py-1 rounded-full text-xs font-bold
                               {% if overview_win_rate.gold_diff > 500 %}bg-green-100 text-green-700
                               {% elif overview_win_rate.gold_diff < -500 %}bg-red-100 text-red-700{% endif %}">
                               {{ "{:,}".format(overview_win_rate.gold_diff) }}
                             </span>
-                    </td>
-                </tr>
+                        </td>
+                    </tr>
 
-                {% for match in lane_win_rate %}
+                    {% for match in lane_win_rate %}
                     {{ macros.render_match_row(match, champion_images, false, is_last=loop.last) }}
-                {% endfor %}
+                    {% endfor %}
 
-                {% for match in matches %}
+                    {% for match in matches %}
                     {{ macros.render_match_row(match, champion_images) }}
-                {% endfor %}
-                </tbody>
-            </table>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-</div>
 
 </body>
 </html>
