@@ -6,6 +6,7 @@ import requests
 
 from .cache import APICache
 from .models.match_detail import MatchDetail
+from .models.match_timeline import MatchTimeline
 from .models.riot_acount import RiotAccount
 from .secrets import API_KEY
 
@@ -68,3 +69,9 @@ class RiotAPIClient:
         url = self.base_url + endpoint
         response_body = self._get_request_with_cache(url, headers=self.headers)
         return MatchDetail.from_dict(response_body)
+
+    def get_match_timeline(self, match_id: str) -> MatchTimeline:
+        endpoint = f"/lol/match/v5/matches/{match_id}/timeline"
+        url = self.base_url + endpoint
+        response_body = self._get_request_with_cache(url, headers=self.headers)
+        return MatchTimeline.from_dict(response_body)

@@ -11,6 +11,7 @@ class WinRate:
     win_count: int = 0
     lose_count: int = 0
     total_count: int = 0
+    early_gold_diff: int = 0
 
     def win_rate(self):
         return int(self.win_count * 100 / self.total_count)
@@ -24,6 +25,7 @@ class WinRate:
             "win_rate": self.win_rate(),
             "kda": self.kda.avg_kda(),
             "kp": self.kda.avg_kill_participation(),
+            "gold_diff": int(self.early_gold_diff / self.total_count),
         }
 
 

@@ -123,11 +123,12 @@
             <table class="min-w-full text-xs border border-gray-200 rounded-lg overflow-hidden">
                 <thead class="bg-gray-100 text-gray-700 text-left uppercase text-xs tracking-wider">
                 <tr>
-                    <th class="px-6 py-2 fixed-column">Champion</th>
+                    <th class="px-4 py-2 fixed-column">Champion</th>
                     <th class="px-2 py-2">Games</th>
                     <th class="px-4 py-2">Win Rate</th>
                     <th class="px-4 py-2">KDA</th>
                     <th class="px-4 py-2">KP</th>
+                    <th class="px-4 py-2">GD@14</th>
                 </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
@@ -157,6 +158,14 @@
                               {% if overview_win_rate.kp > 55 %}bg-green-100 text-green-700
                               {% elif overview_win_rate.kp < 40 %}bg-red-100 text-red-700{% endif %}">
                               {{ overview_win_rate.kp }}%
+                            </span>
+                    </td>
+
+                    <td class="px-4 py-2">
+                            <span class="px-2 py-1 rounded-full text-xs font-bold
+                              {% if overview_win_rate.gold_diff > 500 %}bg-green-100 text-green-700
+                              {% elif overview_win_rate.gold_diff < -500 %}bg-red-100 text-red-700{% endif %}">
+                              {{ "{:,}".format(overview_win_rate.gold_diff) }}
                             </span>
                     </td>
                 </tr>
@@ -190,6 +199,14 @@
                               {% if match.kp >= 60 %}bg-green-100 text-green-700
                               {% elif match.kp < 40 %}bg-red-100 text-red-700{% endif %}">
                               {{ match.kp }}%
+                            </span>
+                    </td>
+
+                    <td class="px-4 py-2">
+                            <span class="px-2 py-1 rounded-full text-xs font-bold
+                              {% if match.gold_diff > 500 %}bg-green-100 text-green-700
+                              {% elif match.gold_diff < -500 %}bg-red-100 text-red-700{% endif %}">
+                              {{ "{:,}".format(match.gold_diff) }}
                             </span>
                     </td>
                 </tr>

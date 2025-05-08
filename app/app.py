@@ -41,8 +41,9 @@ class App:
         # scan every match
         for match_id in match_ids:
             match_detail = self.client.get_match_detail(match_id)
+            match_timeline = self.client.get_match_timeline(match_id)
             if match_detail.info.game_mode == "CLASSIC":
-                func(match_detail, riot_account.puuid, win_rate_map)
+                func(match_detail, match_timeline, riot_account.puuid, win_rate_map)
 
         # Sort and keep as OrderedDict (optional)
         sorted_data = OrderedDict(
@@ -100,23 +101,21 @@ class App:
 
         print(output)
 
+    def get_game_dates_by_champion_lane(self, champion_name, lane):
+        return [
+            p.game_name + "#" + p.tag
+            for match_detail in self._get_match_details()
+            for p in match_detail.info.participants
+            if p.champion_name == champion_name and p.lane == lane
+        ]
 
-def get_game_dates_by_champion_lane(self, champion_name, lane):
-    return [
-        p.game_name + "#" + p.tag
-        for match_detail in self._get_match_details()
-        for p in match_detail.info.participants
-        if p.champion_name == champion_name and p.lane == lane
-    ]
-
-
-def get_info_by_champion(self, champion_name):
-    return [
-        f"{match_detail.info.dt} {p.win}"
-        for match_detail in self._get_match_details()
-        for p in match_detail.info.participants
-        if p.champion_name == champion_name and p.game_name == self.game_name
-    ]
+    def get_info_by_champion(self, champion_name):
+        return [
+            f"{match_detail.info.dt} {p.win}"
+            for match_detail in self._get_match_details()
+            for p in match_detail.info.participants
+            if p.champion_name == champion_name and p.game_name == self.game_name
+        ]
 
 
 game_names = [
