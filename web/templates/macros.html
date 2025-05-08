@@ -7,7 +7,7 @@
 
         {% if has_image %}
         <img src="{{ champion_images.get(name, '/static/default.png') }}"
-             class="w-8 h-8 rounded-full border border-white-950 shadow-sm"/>
+             class="w-8 h-8 rounded-full border-4 border-blue-400 shadow-sm"/>
         {% endif %}
         <span class="font-bold">{{ name | capitalize }}</span>
     </td>
