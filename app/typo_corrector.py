@@ -1,6 +1,11 @@
 class TypoCorrector:
     typo_map = {
-        "FiddleSticks": "Fiddlesticks"
+        "FiddleSticks": "Fiddlesticks",
+        "TOP": "top",
+        "JUNGLE": "jg",
+        "MIDDLE": "mid",
+        "BOTTOM": "bot",
+        "UTILITY": "sup",
     }
 
     @staticmethod

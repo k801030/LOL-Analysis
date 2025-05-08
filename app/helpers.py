@@ -46,9 +46,11 @@ def update_champion_win_rate(match: MatchDetail, match_timeline: MatchTimeline, 
                              win_rate_map: dict[str, WinRate]):
     participant = match.get_participant_by_puuid(owner_puuid)
     early_gold_diff = get_early_gold_diff(match, match_timeline, owner_puuid)
-    _update_win_rate(title=participant.champion_name, win=participant.win, win_rate_map=win_rate_map)
-    _update_kda(title=participant.champion_name, participant=participant, win_rate_map=win_rate_map)
-    _update_others(title=participant.champion_name, early_gold_diff=early_gold_diff, win_rate_map=win_rate_map)
+
+    title = f"{participant.champion_name}#{participant.individual_position}"
+    _update_win_rate(title=title, win=participant.win, win_rate_map=win_rate_map)
+    _update_kda(title=title, participant=participant, win_rate_map=win_rate_map)
+    _update_others(title=title, early_gold_diff=early_gold_diff, win_rate_map=win_rate_map)
 
 
 def aggregate_win_rate(win_rate_map: dict[str, WinRate]) -> WinRate:

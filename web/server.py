@@ -41,10 +41,13 @@ def index():
     overview_win_rate = aggregate_win_rate(win_rate_map).to_html_dict()
     matches = [win_rate.to_html_dict() for win_rate in win_rate_map.values()]
 
+
     champion_images = {
-        win_rate.title: champion_to_url(win_rate.title)
+        # champion name is win_rate.title.split("#")[0]
+        win_rate.title.split("#")[0]: champion_to_url(win_rate.title.split("#")[0])
         for win_rate in win_rate_map.values()
     }
+
     resp = make_response(
         render_template(
             "champions.html",
@@ -55,6 +58,7 @@ def index():
             matches=matches,
             overview_win_rate=overview_win_rate,
             champion_images=champion_images,
+
         )
     )
     resp.set_cookie("user", selected_user)

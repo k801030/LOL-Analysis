@@ -39,11 +39,13 @@ class Participant:
     deaths: int
     assists: int
     lane: str
+    individual_position: str
     challenges: Challenges = field(default_factory=Challenges)
 
     @classmethod
     def from_dict(cls, data: dict) -> "Participant":
         champion_name = TypoCorrector.correct(data["championName"])
+        individual_position = TypoCorrector.correct(data["individualPosition"])
         return cls(
             puuid=data["puuid"],
             team_id=data["teamId"],
@@ -54,7 +56,8 @@ class Participant:
             kills=data["kills"],
             deaths=data["deaths"],
             assists=data["assists"],
-            lane=data["lane"],
+            lane=data["lane"],  # deprecated
+            individual_position=individual_position,
             challenges=Challenges.from_dict(data.get("challenges", {}))
         )
 

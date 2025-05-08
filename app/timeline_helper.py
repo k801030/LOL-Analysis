@@ -12,7 +12,7 @@ def get_participant(match_detail: MatchDetail, puuid) -> Participant:
 
 def get_lane_opponent(match_detail: MatchDetail, me: Participant) -> Participant:
     for p in match_detail.info.participants:
-        if p.lane == me.lane and p.puuid != me.puuid:
+        if p.individual_position == me.individual_position and p.puuid != me.puuid:
             return p
 
 
