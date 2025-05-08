@@ -10,8 +10,7 @@
 
 
 </head>
-<body style="font-family: 'Inter', sans-serif; background-color: #f9fafb;"
-      class="font-roboto bg-gray-50 text-gray-900 min-h-screen p-4">
+<body class="font-mono bg-gray-50 text-gray-900 min-h-screen p-4">
 
 <div class="max-w-5xl mx-auto">
     <!-- Dropdown for User Selection -->
@@ -121,6 +120,36 @@
                 </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
+                <tr class="hover:bg-gray-50 transition ">
+                    <td class="px-6 py-4 font-mono border-b-2">
+                        <span class="font-bold">{{ overview_win_rate.name }}</span>
+                    </td>
+                    <td class="px-6 py-4 font-mono border-b-2">
+                        {{ overview_win_rate.games }}
+                    </td>
+                    <td class="px-6 py-4 border-b-2">
+                            <span class="px-2 py-1 rounded-full text-xs font-bold
+                              {% if overview_win_rate.win_rate > 60 %}bg-green-100 text-green-700
+                              {% elif overview_win_rate.win_rate < 40 %}bg-red-100 text-red-700{% endif %}">
+                              {{ overview_win_rate.win_rate }}%
+                            </span>
+                    </td>
+                    <td class="px-6 py-4 border-b-2">
+                            <span class="px-2 py-1 rounded-full text-xs font-bold
+                              {% if overview_win_rate.kda > 3 %}bg-green-100 text-green-700
+                              {% elif overview_win_rate.kda < 2 %}bg-red-100 text-red-700{% endif %}">
+                              {{ overview_win_rate.kda }}
+                            </span>
+                    </td>
+                    <td class="px-6 py-4 border-b-2">
+                            <span class="px-2 py-1 rounded-full text-xs font-bold
+                              {% if overview_win_rate.kp > 60 %}bg-green-100 text-green-700
+                              {% elif overview_win_rate.kp < 40 %}bg-red-100 text-red-700{% endif %}">
+                              {{ overview_win_rate.kp }}%
+                            </span>
+                    </td>
+                </tr>
+
                 {% for match in matches %}
                 <tr class="hover:bg-gray-50 transition">
                     <td class="px-6 py-4 flex items-center space-x-3">

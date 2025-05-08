@@ -40,3 +40,17 @@ def update_champion_win_rate(match: MatchDetail, owner_puuid: str, win_rate_map:
     participant = match.get_participant_by_puuid(owner_puuid)
     _update_win_rate(title=participant.champion_name, win=participant.win, win_rate_map=win_rate_map)
     _update_kda(title=participant.champion_name, participant=participant, win_rate_map=win_rate_map)
+
+
+def aggregate_win_rate(win_rate_map: dict[str, WinRate]) -> WinRate:
+    overview = WinRate(title="Overview Stats")
+    overview.kda.game_count = sum(win_rate.kda.game_count for win_rate in win_rate_map.values())
+    overview.kda.kills = sum(win_rate.kda.kills for win_rate in win_rate_map.values())
+    overview.kda.deaths = sum(win_rate.kda.deaths for win_rate in win_rate_map.values())
+    overview.kda.assists = sum(win_rate.kda.assists for win_rate in win_rate_map.values())
+    overview.kda.kill_participation = sum(win_rate.kda.kill_participation for win_rate in win_rate_map.values())
+
+    overview.win_count = sum(win_rate.win_count for win_rate in win_rate_map.values())
+    overview.win_count = sum(win_rate.lose_count for win_rate in win_rate_map.values())
+    overview.total_count = sum(win_rate.total_count for win_rate in win_rate_map.values())
+    return overview
