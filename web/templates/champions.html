@@ -124,6 +124,7 @@
                 <thead class="bg-gray-100 text-gray-700 text-left uppercase text-xs tracking-wider">
                 <tr>
                     <th class="px-4 py-2 fixed-column">Champion</th>
+                    <th class="px-2 py-2">Position</th>
                     <th class="px-2 py-2">Games</th>
                     <th class="px-4 py-2">Win Rate</th>
                     <th class="px-4 py-2">KDA</th>
@@ -162,6 +163,8 @@
                 <tr class="hover:bg-gray-50 transition ">
                     <td class="px-4 py-2 font-mono border-b-2 fixed-column">
                         <span class="font-bold">{{ overview_win_rate.name }}</span>
+                    </td>
+                    <td class="px-4 py-2 font-mono border-b-2">
                     </td>
                     <td class="px-4 py-2 font-mono border-b-2">
                         {{ overview_win_rate.games }}
@@ -206,6 +209,8 @@
                         <img src="{{ champion_images.get(name, '/static/default.png') }}"
                              class="w-8 h-8 rounded-full border border-white-950 shadow-sm"/>
                         <span class="font-bold">{{ name }}</span>
+                    </td>
+                    <td class="px-4 py-2 font-mono">
                         <!-- lane icons -->
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
                              class="text-gray-400">
