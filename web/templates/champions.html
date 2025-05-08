@@ -173,21 +173,21 @@
                     </td>
                     <td class="px-4 py-2">
                             <span class="px-2 py-1 rounded-full text-xs font-bold
-                              {% if match.win_rate > 60 %}bg-green-100 text-green-700
+                              {% if match.win_rate >= 60 %}bg-green-100 text-green-700
                               {% elif match.win_rate < 40 %}bg-red-100 text-red-700{% endif %}">
                               {{ match.win_rate }}%
                             </span>
                     </td>
                     <td class="px-4 py-2">
                             <span class="px-2 py-1 rounded-full text-xs font-bold
-                              {% if match.kda > 3 %}bg-green-100 text-green-700
+                              {% if match.kda >= 3 %}bg-green-100 text-green-700
                               {% elif match.kda < 2 %}bg-red-100 text-red-700{% endif %}">
                               {{ match.kda }}
                             </span>
                     </td>
                     <td class="px-4 py-2">
                             <span class="px-2 py-1 rounded-full text-xs font-bold
-                              {% if match.kp > 60 %}bg-green-100 text-green-700
+                              {% if match.kp >= 60 %}bg-green-100 text-green-700
                               {% elif match.kp < 40 %}bg-red-100 text-red-700{% endif %}">
                               {{ match.kp }}%
                             </span>
