@@ -3,12 +3,23 @@
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Champion Stats</title>
+    <meta property="og:title" content="Champion Stats | LOL">
+    <meta property="og:description" content="87">
+    <meta property="og:image" content="https://pm1.aminoapps.com/5757/3836fdfd88a219e7bce7632a2cc54a821fb3827e_hq.jpg">
+    <meta property="og:type" content="website">
+    <title>Champion Stats | LOL</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Inter Font -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
 
-
+    <style>
+        /* Fixed first column */
+        .fixed-column {
+            position: sticky;
+            left: 0;
+            z-index: 1;
+        }
+    </style>
 </head>
 <body class="font-mono bg-gray-50 text-gray-900 min-h-screen p-4">
 
@@ -104,44 +115,44 @@
             {% set username_parts = selected_user.split('#') %}
             <span class="font-medium">{{ username_parts[0] }}</span>
             <span class="text-gray-500 text-sm">#{{ username_parts[1] }}</span>
+            <br>
             <span class="text-base"> in recent {{ selected_game_count }} games</span>
-
         </h1>
 
         <div class="overflow-x-auto">
             <table class="min-w-full text-sm border border-gray-200 rounded-lg overflow-hidden">
                 <thead class="bg-gray-100 text-gray-700 text-left uppercase text-xs tracking-wider">
                 <tr>
-                    <th class="px-6 py-4">Champion</th>
-                    <th class="px-6 py-4">Games</th>
-                    <th class="px-6 py-4">Win Rate</th>
-                    <th class="px-6 py-4">KDA</th>
-                    <th class="px-6 py-4">KP</th>
+                    <th class="px-4 py-2 fixed-column">Champion</th>
+                    <th class="px-4 py-2">Games</th>
+                    <th class="px-4 py-2">Win Rate</th>
+                    <th class="px-4 py-2">KDA</th>
+                    <th class="px-4 py-2">KP</th>
                 </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
                 <tr class="hover:bg-gray-50 transition ">
-                    <td class="px-6 py-4 font-mono border-b-2">
+                    <td class="px-4 py-2 font-mono border-b-2 fixed-column">
                         <span class="font-bold">{{ overview_win_rate.name }}</span>
                     </td>
-                    <td class="px-6 py-4 font-mono border-b-2">
+                    <td class="px-4 py-2 font-mono border-b-2">
                         {{ overview_win_rate.games }}
                     </td>
-                    <td class="px-6 py-4 border-b-2">
+                    <td class="px-4 py-2 border-b-2">
                             <span class="px-2 py-1 rounded-full text-xs font-bold
                               {% if overview_win_rate.win_rate > 60 %}bg-green-100 text-green-700
                               {% elif overview_win_rate.win_rate < 40 %}bg-red-100 text-red-700{% endif %}">
                               {{ overview_win_rate.win_rate }}%
                             </span>
                     </td>
-                    <td class="px-6 py-4 border-b-2">
+                    <td class="px-4 py-2 border-b-2">
                             <span class="px-2 py-1 rounded-full text-xs font-bold
                               {% if overview_win_rate.kda > 3 %}bg-green-100 text-green-700
                               {% elif overview_win_rate.kda < 2 %}bg-red-100 text-red-700{% endif %}">
                               {{ overview_win_rate.kda }}
                             </span>
                     </td>
-                    <td class="px-6 py-4 border-b-2">
+                    <td class="px-4 py-2 border-b-2">
                             <span class="px-2 py-1 rounded-full text-xs font-bold
                               {% if overview_win_rate.kp > 55 %}bg-green-100 text-green-700
                               {% elif overview_win_rate.kp < 40 %}bg-red-100 text-red-700{% endif %}">
@@ -152,29 +163,29 @@
 
                 {% for match in matches %}
                 <tr class="hover:bg-gray-50 transition">
-                    <td class="px-6 py-4 flex items-center space-x-3">
+                    <td class="px-4 py-2 flex items-center space-x-3 fixed-column">
                         <img src="{{ champion_images.get(match.name, '/static/default.png') }}"
                              class="w-10 h-10 rounded-full border border-gray-300 shadow-sm"/>
                         <span class="font-bold">{{ match.name }}</span>
                     </td>
-                    <td class="px-6 py-4 font-mono">
+                    <td class="px-4 py-2 font-mono">
                         {{ match.games }}
                     </td>
-                    <td class="px-6 py-4">
+                    <td class="px-4 py-2">
                             <span class="px-2 py-1 rounded-full text-xs font-bold
                               {% if match.win_rate > 60 %}bg-green-100 text-green-700
                               {% elif match.win_rate < 40 %}bg-red-100 text-red-700{% endif %}">
                               {{ match.win_rate }}%
                             </span>
                     </td>
-                    <td class="px-6 py-4">
+                    <td class="px-4 py-2">
                             <span class="px-2 py-1 rounded-full text-xs font-bold
                               {% if match.kda > 3 %}bg-green-100 text-green-700
                               {% elif match.kda < 2 %}bg-red-100 text-red-700{% endif %}">
                               {{ match.kda }}
                             </span>
                     </td>
-                    <td class="px-6 py-4">
+                    <td class="px-4 py-2">
                             <span class="px-2 py-1 rounded-full text-xs font-bold
                               {% if match.kp > 60 %}bg-green-100 text-green-700
                               {% elif match.kp < 40 %}bg-red-100 text-red-700{% endif %}">
