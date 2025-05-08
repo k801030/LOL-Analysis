@@ -60,7 +60,4 @@ def champion_to_url(champion):
 
 
 if __name__ == "__main__":
-    server.run(
-        port=3000,
-        debug=True,
-    )
+    server.run(debug=True)
