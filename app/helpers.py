@@ -1,3 +1,4 @@
+from collections import OrderedDict
 from typing import List
 
 from .models.match_detail import MatchDetail, Participant
@@ -67,3 +68,30 @@ def aggregate_win_rate(win_rate_map: dict[str, WinRate]) -> WinRate:
 
     overview.early_gold_diff = sum(win_rate.early_gold_diff for win_rate in win_rate_map.values())
     return overview
+
+
+def aggregate_win_rate_by_lane(win_rate_map: dict[str, WinRate]) -> dict[str, WinRate]:
+    lane_win_rate_map: dict[str, WinRate] = {}
+    for title, win_rate in win_rate_map.items():
+        name, lane = title.split("#")
+        if lane not in lane_win_rate_map:
+            lane_win_rate_map[lane] = WinRate(title=lane)
+        lane_win_rate = lane_win_rate_map[lane]
+
+        # Fields in lane_win_rate.kda
+        kda_fields = ['game_count', 'kills', 'deaths', 'assists', 'kill_participation']
+        for field in kda_fields:
+            setattr(lane_win_rate.kda, field, getattr(lane_win_rate.kda, field) + getattr(win_rate.kda, field))
+
+        # Top-level fields in lane_win_rate
+        map_fields = ['win_count', 'lose_count', 'total_count', 'early_gold_diff']
+        for field in map_fields:
+            setattr(lane_win_rate, field, getattr(lane_win_rate, field) + getattr(win_rate, field))
+
+
+    sorted_data = OrderedDict(
+        sorted(lane_win_rate_map.items(), key=lambda item: item[1].total_count, reverse=True)
+    )
+
+    # If you want to wrap it again in WinRateMap:
+    return dict(sorted_data)

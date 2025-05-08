@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, make_response
 
 from app.app import App
-from app.helpers import aggregate_win_rate
+from app.helpers import aggregate_win_rate, aggregate_win_rate_by_lane
 
 
 server = Flask(__name__)
@@ -39,6 +39,7 @@ def index():
 
     win_rate_map = app.get_win_rates_by_champions()
     overview_win_rate = aggregate_win_rate(win_rate_map).to_html_dict()
+    lane_win_rate = [win_rate.to_html_dict() for win_rate in aggregate_win_rate_by_lane(win_rate_map).values()]
     matches = [win_rate.to_html_dict() for win_rate in win_rate_map.values()]
 
 
@@ -57,6 +58,7 @@ def index():
             selected_game_count=selected_game_count,
             matches=matches,
             overview_win_rate=overview_win_rate,
+            lane_win_rate=lane_win_rate,
             champion_images=champion_images,
 
         )
