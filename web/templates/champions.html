@@ -121,7 +121,7 @@
             <span class="text-lg">{{ username_parts[0] }}</span>
             <span class="text-gray-500 text-sm">#{{ username_parts[1] }}</span>
             <br>
-            <span class="text-sm font-light">{{ selected_game_count }} recent games since {{ time_diff }} ago</span>
+            <span class="text-sm font-normal text-gray-500">{{ selected_game_count }} recent games since {{ time_diff }} ago</span>
         </h1>
         <div class="overflow-x-auto">
 
@@ -219,6 +219,25 @@
             </div>
         </div>
     </div>
+    <footer class="mt-12 text-center text-sm text-gray-500 py-6 border-t border-gray-200">
+        <p id="random-footer">Loading meme...</p>
+    </footer>
+    <script>
+        const footers = [
+            "Just FF, it's over. 🔥",
+            "Win rate low? It's not inting if it’s a strategy. 🤓",
+            "These stats are 100% accurate... unless you lost. Then it's your team's fault. 😤",
+            "Stats don’t lie, but your gameplay does. GG EZ. 😅",
+            "Better luck next time, or just FF. 😏",
+            "Teemo is watching you... step carefully. 🍄",
+            "哭啊，送爽沒 😢",
+            "為什麼我勝率這麼低，是不是有人在搞？ 🤨",
+            "Slowly song please ☠️",
+        ];
 
+        const randomFooter = footers[Math.floor(Math.random() * footers.length)];
+        document.getElementById("random-footer").textContent = randomFooter;
+    </script>
+</div>
 </body>
 </html>
