@@ -1,3 +1,4 @@
+from datetime import datetime
 import logging
 from collections import OrderedDict
 
@@ -12,6 +13,7 @@ logger = logging.getLogger(__name__)
 
 
 class App:
+    earliest_game_time: datetime
 
     def __init__(self, client=RiotAPIClient()):
         self.tag_line = None
@@ -43,6 +45,7 @@ class App:
             match_detail = self.client.get_match_detail(match_id)
             match_timeline = self.client.get_match_timeline(match_id)
             func(match_detail, match_timeline, riot_account.puuid, win_rate_map)
+            self.earliest_game_time = match_detail.info.dt
 
         # Sort and keep as OrderedDict (optional)
         sorted_data = OrderedDict(

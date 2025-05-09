@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from flask import Flask, render_template, request, make_response
 
 from app.app import App
@@ -42,6 +44,7 @@ def index():
     role_win_rate = [win_rate.to_html_dict() for win_rate in aggregate_win_rate_by_role(win_rate_map).values()]
     matches = [win_rate.to_html_dict() for win_rate in win_rate_map.values()]
 
+    time_diff = get_time_diff(app.earliest_game_time)
 
     champion_images = {
         # champion name is win_rate.title.split("#")[0]
@@ -60,7 +63,7 @@ def index():
             overview_win_rate=overview_win_rate,
             role_win_rate=role_win_rate,
             champion_images=champion_images,
-
+            time_diff=time_diff,
         )
     )
     resp.set_cookie("user", selected_user)
@@ -70,6 +73,15 @@ def index():
 
 def champion_to_url(champion):
     return f"https://opgg-static.akamaized.net/meta/images/lol/15.4.1/champion/{champion}.png"
+
+
+def get_time_diff(target: datetime) -> str:
+    delta = datetime.now() - target
+
+    if delta.days < 1:
+        return f"{delta.seconds // 3600} hours"
+    else:
+        return f"{delta.days} days"
 
 
 if __name__ == "__main__":
