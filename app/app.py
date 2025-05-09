@@ -42,8 +42,7 @@ class App:
         for match_id in match_ids:
             match_detail = self.client.get_match_detail(match_id)
             match_timeline = self.client.get_match_timeline(match_id)
-            if match_detail.info.game_mode == "CLASSIC":
-                func(match_detail, match_timeline, riot_account.puuid, win_rate_map)
+            func(match_detail, match_timeline, riot_account.puuid, win_rate_map)
 
         # Sort and keep as OrderedDict (optional)
         sorted_data = OrderedDict(
