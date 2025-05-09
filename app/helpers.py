@@ -55,19 +55,19 @@ def update_champion_win_rate(match: MatchDetail, match_timeline: MatchTimeline, 
 
 
 def aggregate_win_rate(win_rate_map: dict[str, WinRate]) -> WinRate:
-    overview = WinRate(title="Overview Stats")
-    overview.kda.game_count = sum(win_rate.kda.game_count for win_rate in win_rate_map.values())
-    overview.kda.kills = sum(win_rate.kda.kills for win_rate in win_rate_map.values())
-    overview.kda.deaths = sum(win_rate.kda.deaths for win_rate in win_rate_map.values())
-    overview.kda.assists = sum(win_rate.kda.assists for win_rate in win_rate_map.values())
-    overview.kda.kill_participation = sum(win_rate.kda.kill_participation for win_rate in win_rate_map.values())
+    general = WinRate(title="General Stats")
+    general.kda.game_count = sum(win_rate.kda.game_count for win_rate in win_rate_map.values())
+    general.kda.kills = sum(win_rate.kda.kills for win_rate in win_rate_map.values())
+    general.kda.deaths = sum(win_rate.kda.deaths for win_rate in win_rate_map.values())
+    general.kda.assists = sum(win_rate.kda.assists for win_rate in win_rate_map.values())
+    general.kda.kill_participation = sum(win_rate.kda.kill_participation for win_rate in win_rate_map.values())
 
-    overview.win_count = sum(win_rate.win_count for win_rate in win_rate_map.values())
-    overview.lose_count = sum(win_rate.lose_count for win_rate in win_rate_map.values())
-    overview.total_count = sum(win_rate.total_count for win_rate in win_rate_map.values())
+    general.win_count = sum(win_rate.win_count for win_rate in win_rate_map.values())
+    general.lose_count = sum(win_rate.lose_count for win_rate in win_rate_map.values())
+    general.total_count = sum(win_rate.total_count for win_rate in win_rate_map.values())
 
-    overview.early_gold_diff = sum(win_rate.early_gold_diff for win_rate in win_rate_map.values())
-    return overview
+    general.early_gold_diff = sum(win_rate.early_gold_diff for win_rate in win_rate_map.values())
+    return general
 
 
 def aggregate_win_rate_by_role(win_rate_map: dict[str, WinRate]) -> dict[str, WinRate]:

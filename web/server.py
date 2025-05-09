@@ -40,9 +40,10 @@ def index():
     app.set_count(int(selected_game_count))
 
     win_rate_map = app.get_win_rates_by_champions()
-    overview_win_rate = aggregate_win_rate(win_rate_map).to_html_dict()
-    role_win_rate = [win_rate.to_html_dict() for win_rate in aggregate_win_rate_by_role(win_rate_map).values()]
-    matches = [win_rate.to_html_dict() for win_rate in win_rate_map.values()]
+
+    general_stats = aggregate_win_rate(win_rate_map).to_html_dict()
+    role_stats = [win_rate.to_html_dict() for win_rate in aggregate_win_rate_by_role(win_rate_map).values()]
+    champion_stats = [win_rate.to_html_dict() for win_rate in win_rate_map.values()]
 
     time_diff = get_time_diff(app.earliest_game_time)
 
@@ -59,9 +60,9 @@ def index():
             selected_user=selected_user,
             game_counts=game_counts,
             selected_game_count=selected_game_count,
-            matches=matches,
-            overview_win_rate=overview_win_rate,
-            role_win_rate=role_win_rate,
+            general_stats=general_stats,
+            role_stats=role_stats,
+            champion_stats=champion_stats,
             champion_images=champion_images,
             time_diff=time_diff,
         )

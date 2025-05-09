@@ -167,52 +167,17 @@
                     </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
-                    <tr class="hover:bg-gray-50 transition ">
-                        <td class="px-4 py-2 font-mono border-b-2 fixed-column">
-                            <span class="font-bold">{{ overview_win_rate.name }}</span>
-                        </td>
-                        <td class="px-4 py-2 font-mono border-b-2">
-                        </td>
-                        <td class="px-4 py-2 font-mono border-b-2">
-                            {{ overview_win_rate.games }}
-                        </td>
-                        <td class="px-4 py-2 border-b-2">
-                            <span class="px-2 py-1 rounded-full text-xs font-bold
-                              {% if overview_win_rate.win_rate > 60 %}bg-green-100 text-green-700
-                              {% elif overview_win_rate.win_rate < 40 %}bg-red-100 text-red-700{% endif %}">
-                              {{ overview_win_rate.win_rate }}%
-                            </span>
-                        </td>
-                        <td class="px-4 py-2 border-b-2">
-                            <span class="px-2 py-1 rounded-full text-xs font-bold
-                              {% if overview_win_rate.kda > 3 %}bg-green-100 text-green-700
-                              {% elif overview_win_rate.kda < 2 %}bg-red-100 text-red-700{% endif %}">
-                              {{ overview_win_rate.kda }}
-                            </span>
-                        </td>
-                        <td class="px-4 py-2 border-b-2">
-                            <span class="px-2 py-1 rounded-full text-xs font-bold
-                              {% if overview_win_rate.kp > 55 %}bg-green-100 text-green-700
-                              {% elif overview_win_rate.kp < 40 %}bg-red-100 text-red-700{% endif %}">
-                              {{ overview_win_rate.kp }}%
-                            </span>
-                        </td>
+                    <!-- general -->
+                    {{ macros.render_match_row(general_stats, champion_images, false, is_last=true) }}
 
-                        <td class="px-4 py-2">
-                            <span class="px-2 py-1 rounded-full text-xs font-bold
-                              {% if overview_win_rate.gold_diff > 500 %}bg-green-100 text-green-700
-                              {% elif overview_win_rate.gold_diff < -500 %}bg-red-100 text-red-700{% endif %}">
-                              {{ "{:,}".format(overview_win_rate.gold_diff) }}
-                            </span>
-                        </td>
-                    </tr>
-
-                    {% for match in role_win_rate %}
-                    {{ macros.render_match_row(match, champion_images, false, is_last=loop.last) }}
+                    <!-- roles -->
+                    {% for stats in role_stats %}
+                    {{ macros.render_match_row(stats, champion_images, false, is_last=loop.last) }}
                     {% endfor %}
 
-                    {% for match in matches %}
-                    {{ macros.render_match_row(match, champion_images) }}
+                    <!-- champions -->
+                    {% for stats in champion_stats %}
+                    {{ macros.render_match_row(stats, champion_images) }}
                     {% endfor %}
                     </tbody>
                 </table>
