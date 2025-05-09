@@ -76,12 +76,12 @@ def champion_to_url(champion):
 
 
 def get_time_diff(target: datetime) -> str:
-    delta = datetime.now() - target
+    delta = (datetime.now() - target).days + 1
 
-    if delta.days < 1:
-        return f"{delta.seconds // 3600} hours"
+    if delta == 1:
+        return f"{delta} day"
     else:
-        return f"{delta.days} days"
+        return f"{delta} days"
 
 
 if __name__ == "__main__":
