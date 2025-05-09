@@ -119,9 +119,9 @@
         <h1 id="user-title" class="text-3xl font-semibold mb-6">
             {% set username_parts = selected_user.split('#') %}
             <span class="text-lg">{{ username_parts[0] }}</span>
-            <span class="text-gray-500 text-sm">#{{ username_parts[1] }}</span>
+            <span class="text-gray-400 text-sm">#{{ username_parts[1] }}</span>
             <br>
-            <span class="text-sm font-normal text-gray-500">{{ selected_game_count }} recent games since {{ time_diff }} ago</span>
+            <span class="text-sm font-normal text-gray-600">played {{ selected_game_count }} games in the last {{time_diff}}</span>
         </h1>
         <div class="overflow-x-auto">
 
