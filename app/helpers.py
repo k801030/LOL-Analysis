@@ -70,27 +70,27 @@ def aggregate_win_rate(win_rate_map: dict[str, WinRate]) -> WinRate:
     return overview
 
 
-def aggregate_win_rate_by_lane(win_rate_map: dict[str, WinRate]) -> dict[str, WinRate]:
-    lane_win_rate_map: dict[str, WinRate] = {}
+def aggregate_win_rate_by_role(win_rate_map: dict[str, WinRate]) -> dict[str, WinRate]:
+    role_win_rate_map: dict[str, WinRate] = {}
     for title, win_rate in win_rate_map.items():
-        name, lane = title.split("#")
-        if lane not in lane_win_rate_map:
-            lane_win_rate_map[lane] = WinRate(title=lane)
-        lane_win_rate = lane_win_rate_map[lane]
+        name, role = title.split("#")
+        if role not in role_win_rate_map:
+            role_win_rate_map[role] = WinRate(title=role)
+        role_win_rate = role_win_rate_map[role]
 
-        # Fields in lane_win_rate.kda
+        # Fields in role_win_rate.kda
         kda_fields = ['game_count', 'kills', 'deaths', 'assists', 'kill_participation']
         for field in kda_fields:
-            setattr(lane_win_rate.kda, field, getattr(lane_win_rate.kda, field) + getattr(win_rate.kda, field))
+            setattr(role_win_rate.kda, field, getattr(role_win_rate.kda, field) + getattr(win_rate.kda, field))
 
-        # Top-level fields in lane_win_rate
+        # Top-level fields in role_win_rate
         map_fields = ['win_count', 'lose_count', 'total_count', 'early_gold_diff']
         for field in map_fields:
-            setattr(lane_win_rate, field, getattr(lane_win_rate, field) + getattr(win_rate, field))
+            setattr(role_win_rate, field, getattr(role_win_rate, field) + getattr(win_rate, field))
 
 
     sorted_data = OrderedDict(
-        sorted(lane_win_rate_map.items(), key=lambda item: item[1].total_count, reverse=True)
+        sorted(role_win_rate_map.items(), key=lambda item: item[1].total_count, reverse=True)
     )
 
     # If you want to wrap it again in WinRateMap:

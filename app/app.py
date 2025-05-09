@@ -101,12 +101,12 @@ class App:
 
         print(output)
 
-    def get_game_dates_by_champion_lane(self, champion_name, lane):
+    def get_game_dates_by_champion_role(self, champion_name, role):
         return [
             p.game_name + "#" + p.tag
             for match_detail in self._get_match_details()
             for p in match_detail.info.participants
-            if p.champion_name == champion_name and p.lane == lane
+            if p.champion_name == champion_name and p.lane == role
         ]
 
     def get_info_by_champion(self, champion_name):

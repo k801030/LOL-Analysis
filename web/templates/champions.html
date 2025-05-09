@@ -131,7 +131,7 @@
                     <thead class="bg-gray-100 text-gray-700 text-left uppercase text-xs tracking-wider">
                     <tr>
                         <th class="px-6 py-2 fixed-column">Champion</th>
-                        <th class="px-2 py-2 ">Position</th>
+                        <th class="px-2 py-2 ">Role</th>
                         <th class="px-2 py-2">Games</th>
                         <th class="px-4 py-2">Win Rate</th>
                         <th class="px-4 py-2">KDA</th>
@@ -160,8 +160,7 @@
                                 <!-- Tooltip -->
                                 <div class="absolute z-10 hidden group-hover:block bg-white border border-gray-300 text-gray-700 text-xs rounded shadow-lg w-56 p-2 right-0 top-6">
                                     Gold Difference at 14 minutes (GD@14) shows how much more or less gold the player
-                                    has
-                                    compared to their lane opponent at minute 14.
+                                    has compared to their enemy laner at minute 14.
                                 </div>
                             </button>
                         </th>
@@ -208,7 +207,7 @@
                         </td>
                     </tr>
 
-                    {% for match in lane_win_rate %}
+                    {% for match in role_win_rate %}
                     {{ macros.render_match_row(match, champion_images, false, is_last=loop.last) }}
                     {% endfor %}
 

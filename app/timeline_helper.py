@@ -10,7 +10,7 @@ def get_participant(match_detail: MatchDetail, puuid) -> Participant:
             return p
 
 
-def get_lane_opponent(match_detail: MatchDetail, me: Participant) -> Participant:
+def get_enemy_laner(match_detail: MatchDetail, me: Participant) -> Participant:
     for p in match_detail.info.participants:
         if p.individual_position == me.individual_position and p.puuid != me.puuid:
             return p
@@ -21,7 +21,7 @@ def get_early_gold_diff(match_detail: MatchDetail, match_timeline: MatchTimeline
     if frame_index >= len(match_timeline.info.frames):
         return 0
     me = get_participant(match_detail, puuid)
-    opponent = get_lane_opponent(match_detail, me)
+    opponent = get_enemy_laner(match_detail, me)
     if opponent is not None:
         my_gold = _get_gold_by_participant(match_timeline, frame_index, me)
         opponent_gold = _get_gold_by_participant(match_timeline, frame_index, opponent)
